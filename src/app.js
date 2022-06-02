@@ -8,7 +8,9 @@ const path = require('path');
 
 require('dotenv').config();
 
-
+require('./services/mq/worker');
+const mq = require('./utils/mq');
+const mqConfig = require('./config/mq');
 const {SkillsRoutes}= require('./services/search/skills/skills.routes')
 const {JobTitleRoutes}= require('./services/search/jobTitle/jobtitle.routes')
 const {locationRoutes}= require('./services/search/location/location.routes')
@@ -81,6 +83,16 @@ companyService(app);
 
 app.get('*', (req, res) => {
   res.send({msg:"hi anyone"});
+});
+
+
+// testing the logic of mq
+// this should be inside the logic for saving interview videos
+
+app.post('/mq', (req, res) => {
+  const body = req.body;
+  mq.publish(mqConfig.publisher, body);
+  res.send({success: true});
 });
 
 app.listen(port, ()=>{console.log(`Server Listing on PORT-${port}`)});

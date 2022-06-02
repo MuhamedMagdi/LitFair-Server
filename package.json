@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/0oM4R/LitFair-Server#readme",
   "dependencies": {
+    "amqplib": "0.9.1",
     "bcrypt": "5.0.1",
     "cookie-parser": "1.4.6",
     "cors": "2.8.5",
